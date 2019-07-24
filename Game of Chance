@@ -1,0 +1,86 @@
+import java.util.*;
+public class GameOfChance {
+	
+	public static void main(String[] args){
+		
+		Scanner console = new Scanner(System.in);
+		Random r = new Random();
+		System.out.println("What is your initial stake?");
+		System.out.println("You may only enter dollar amounts");
+		int stake = console.nextInt();
+		System.out.println("Your balance is $" + stake); 
+		String area = new String();
+		
+		while ((stake > 0) && !(area.equals ("D"))){
+			System.out.println();
+			System.out.println("In which area would you like to place your bet?");
+			System.out.println("  A: under 7 (dealer pays 1 to 1)");
+			System.out.println("  B: over 7 (dealer pays 1 to 1)");
+			System.out.println("  C: exactly 7 (dealer pays 4 to 1)");
+			System.out.println("  D: no bet -- quit game");
+			area = console.next();
+	
+			if(area.equals("A")){
+				System.out.println("What is your bet?");
+				int bet = console.nextInt();
+				int dealer = r.nextInt(10) + 2;
+				System.out.println("Dealer throws " + dealer);
+				if(dealer < 7){
+				System.out.println("YOU WIN $" + bet);
+				System.out.println("Your balance is $" + (stake+bet));
+				stake = stake + bet;
+				}else{
+				System.out.println("YOU LOSE $" + bet);
+				System.out.println("Your balance is $" + (stake-bet));
+				stake = stake - bet;
+				}
+			}else if(area.equals("B")){
+				System.out.println("What is your bet?");
+				int bet = console.nextInt();
+				int dealer = r.nextInt(10) + 2;
+				System.out.println("Dealer throws " + dealer);
+				if(dealer > 7){
+				System.out.println("YOU WIN $" + bet);
+				System.out.println("Your balance is $" + (stake+bet));
+				stake = stake + bet;
+				}else{
+				System.out.println("YOU LOSE $" + bet);
+				System.out.println("Your balance is $" + (stake-bet));
+				stake = stake + bet;
+				}
+			}else if(area.equals ("C")){
+				System.out.println("What is your bet?");
+				int bet = console.nextInt();
+				int dealer = r.nextInt(10) + 2;
+				System.out.println("Dealer throws " + dealer);
+				if(dealer == 7){
+				System.out.println("YOU WIN $" + bet * 4);
+				System.out.println("Your balance is $" + (stake + (4*bet)));
+				stake = stake + (4 * bet);
+				}else{
+				System.out.println("YOU LOSE $" + bet);
+				System.out.println("Your balance is $" + (stake-bet));
+				stake = stake - bet;
+				}
+			}else if(area.equals ("D")){	
+				System.out.println("Game Over!");
+				System.out.println("Your final balance is $" + stake);
+			
+			
+			
+			}else {
+				System.out.println("That is not an option try again");
+			}		
+		}
+		
+		while(stake < 0){
+			System.out.println();
+			System.out.println("Game Over!");
+			System.out.println("You owe ME Money!");
+			stake = stake * (-1);
+			System.out.println("Pay me $" + stake + " OR ELSE!");
+			stake = stake * (-1);
+			stake = stake + console.nextInt();
+		}	
+	}	
+}
