@@ -1,0 +1,96 @@
+import java.util.Stack;
+
+public class Calc 
+{
+	public static void commandLine (Stack<Integer> s,String[] args)
+	{
+		try
+		{
+			for (int i = 0 ; i < args.length; i++)
+				{
+					try
+					{
+						System.out.println("we did get here");
+						int x = Integer.parseInt(args[i]);
+						System.out.println(args[i]);
+						s.push(x);
+					}
+					catch(NumberFormatException e)
+					{
+						opertions(args[i], s);
+						System.out.println("we did operations");
+					}
+				}
+				System.out.println(s.pop());
+		}
+		catch(NumberFormatException e)
+		{
+			System.out.println(e);
+		}
+	}
+	public static void opertions (String op, Stack<Integer> s)
+	{
+		if(op.equals("+"))
+		{
+			add(s);
+		}
+		else if(op.equals("-"))
+		{
+			sub(s);
+		}
+		else if(op.equals("x"))
+		{	
+			mult(s);
+		}
+		else if(op.equals("/"))
+		{	
+			div(s);
+		}
+		else
+		{
+		throw new NumberFormatException("Invalid expression.");
+		}
+	}
+	public static void add(Stack<Integer> s)
+	{
+		int x;
+		int y;
+		x=s.pop();
+		y=s.pop();
+		x=x+y;
+		s.push(x);
+	}
+	public static void sub(Stack<Integer> s)
+	{
+		int x;
+		int y;
+		x=s.pop();
+		y=s.pop();
+		x=y-x;
+		s.push(x);
+	}
+	public static void mult(Stack<Integer> s)
+	{
+		int x;
+		int y;
+		x=s.pop();
+		y=s.pop();
+		x=x*y;
+		s.push(x);
+	}
+	public static void div(Stack<Integer> s)
+	{
+		int x;
+		int y;
+		x=s.pop();
+		y=s.pop();
+		x=y/x;
+		s.push(x);
+	}
+	public static void main(String[] args)
+	{
+			Stack<Integer> s = new Stack<Integer>();
+			
+			commandLine(s,args);
+	}
+}
